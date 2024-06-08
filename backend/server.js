@@ -7,6 +7,8 @@ const uploadRoute = require("./routes/upload.js")
 const PORT = 3002;
 const mongoose = require("mongoose");
 const path =  require("path");
+const cors = require("cors")
+
 require("dotenv").config();
 
 //mongoDBでデータ接続
@@ -14,8 +16,15 @@ mongoose.connect(process.env.MONGO_URL)
   .then(() => console.log("DBと接続中..."))
   .catch((err) => console.log(err));
 
+const corsOption = {
+  origin: "https://sns-udemy-six.vercel.app",
+  methods: "GET, PUT, PATCH, POST, DELETE",
+  crendentials: true,
+  optionSuccessStatus: 204,
+}
 
 //ミドルウェア
+app.use(cors(corsOption));
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "public/images")))
 app.use("/api/users", userRoute);
