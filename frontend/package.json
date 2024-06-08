@@ -42,5 +42,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://sns-udemy-six.vercel.app/api"
+  "proxy": "http://localhost:3002/api"
+
 }
