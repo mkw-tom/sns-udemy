@@ -16,22 +16,20 @@ mongoose.connect(process.env.MONGO_URL)
   .then(() => console.log("DBと接続中..."))
   .catch((err) => console.log(err));
 
-// const corsOption = {
-//   origin: "https://sns-udemy-six.vercel.app",
-//   methods: ["POST", "PUT", "PATCH", "DELETE"],
-//   crendentials: true,
-//   optionSuccessStatus: 200,
-// }
+const corsOption = {
+  origin: "https://sns-udemy-six.vercel.app",
+  methods: ["POST", "PUT", "PATCH", "DELETE"],
+  allowedHeaders: 'Content-Type, Authorization',
+  credentials: true,
+  optionsSuccessStatus: 200,
+}
 
 //ミドルウェア
-// app.use(cors(corsOption));
+app.use(cors(corsOption));
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "public/images")))
 app.use("/api/users", userRoute);
-app.use("/api/auth", cors({
-  origin: "https://sns-udemy-six.vercel.app/auth/register",
-  methods: "POST"
-}), authRoute);
+app.use("/api/auth", authRoute);
 app.use("/api/posts", postsRoute);
 app.use("/api/upload", uploadRoute);
 
