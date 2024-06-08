@@ -15,7 +15,7 @@ const Post = ({ post }) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await axios.get(`/users?userId=${post.userId}`);
+      const response = await axios.get(`/api/users?userId=${post.userId}`);
       setCurUser(response.data);
     };
     fetchUser();
@@ -26,7 +26,7 @@ const Post = ({ post }) => {
     setIsLiked(!isLiked);
     try {
       //いいねのapiを叩く
-      await axios.put(`/posts/${post._id}/like`, { userId: user._id });
+      await axios.put(`/api/posts/${post._id}/like`, { userId: user._id });
     } catch (err) {
       console.log(err)
     }
@@ -38,7 +38,7 @@ const Post = ({ post }) => {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <Link to={`/profile/${curUser.username}`}>
+            <Link to={`/api/profile/${curUser.username}`}>
               <img
                 src={
                   curUser.profiilePicture ? 
