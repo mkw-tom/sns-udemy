@@ -3,6 +3,7 @@ import React, { useContext, useRef, useState } from "react";
 import "./Share.css";
 import { AuthContext } from "../../state/AuthContext";
 import axios from "axios";
+import { api } from "../../axios";
 
 const Share = () => {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -24,13 +25,13 @@ const Share = () => {
       data.append("file", file);
       newPost.img = fileName;
       try {
-        await axios.post("/api/upload", data);
+        await api.post("/api/upload", data);
       } catch (err) {
         console.log(err)
       }
     }
     try {
-      await axios.post("/api/posts", newPost);
+      await api.post("/api/posts", newPost);
       window.location.reload();
     } catch (err) {
       console.log(err);

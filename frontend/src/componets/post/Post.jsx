@@ -5,6 +5,7 @@ import axios from "axios";
 import { format } from "timeago.js";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../state/AuthContext";
+import { api } from "../../axios";
 
 const Post = ({ post }) => {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -15,7 +16,7 @@ const Post = ({ post }) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await axios.get(`/api/users?userId=${post.userId}`);
+      const response = await api.get(`/api/users?userId=${post.userId}`);
       setCurUser(response.data);
     };
     fetchUser();
@@ -26,7 +27,7 @@ const Post = ({ post }) => {
     setIsLiked(!isLiked);
     try {
       //いいねのapiを叩く
-      await axios.put(`/api/posts/${post._id}/like`, { userId: user._id });
+      await api.put(`/api/posts/${post._id}/like`, { userId: user._id });
     } catch (err) {
       console.log(err)
     }

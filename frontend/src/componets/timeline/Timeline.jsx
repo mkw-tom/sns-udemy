@@ -4,6 +4,7 @@ import Share from "../share/Share";
 import Post from "../post/Post";
 import axios from "axios";
 import { AuthContext } from "../../state/AuthContext";
+import { api } from "../../axios";
 // import { Posts } from "../../dummyData"
 
 const Timeline = ({ username }) => {
@@ -13,8 +14,8 @@ const Timeline = ({ username }) => {
   useEffect(() => {
     const fetchPosts = async () => {
       const response = username
-        ? await axios.get(`/api/posts/profile/${username}`) //プロフィールの場合
-        : await axios.get(`/api/posts/timeline/${user._id}`); //ホームの場合
+        ? await api.get(`/api/posts/profile/${username}`) //プロフィールの場合
+        : await api.get(`/api/posts/timeline/${user._id}`); //ホームの場合
       setPosts(
         response.data.sort((post1, post2) => {
           return new Date(post2.createdAt) - new Date(post1.createdAt);
