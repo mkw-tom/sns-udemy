@@ -16,16 +16,21 @@ mongoose.connect(process.env.MONGO_URL)
   .then(() => console.log("DBと接続中..."))
   .catch((err) => console.log(err));
 
-const corsOption = {
-  origin: "https://sns-udemy-six.vercel.app",
-  methods: ["POST", "PUT", "PATCH", "DELETE"],
-  allowedHeaders: 'Content-Type, Authorization',
-  credentials: true,
-  optionsSuccessStatus: 200,
-}
+// const corsOption = {
+//   origin: "https://sns-udemy-six.vercel.app",
+//   methods:"*",
+//   allowedHeaders: 'Content-Type, Authorization',
+//   credentials: true,
+//   optionsSuccessStatus: 200,
+// }
 
 //ミドルウェア
-app.use(cors(corsOption));
+app.use(cors({
+  origin: "https://sns-udemy-six.vercel.app", //アクセス許可するオリジン
+  credentials: true, //レスポンスヘッダーにAccess-Control-Allow-Credentials追加
+  optionsSuccessStatus: 200 //レスポンスstatusを200に設定
+}))
+
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "public/images")))
 app.use("/api/users", userRoute);
