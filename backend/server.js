@@ -25,11 +25,7 @@ mongoose.connect(process.env.MONGO_URL)
 // }
 
 //ミドルウェア
-app.use(cors({
-  origin: "https://sns-udemy-six.vercel.app", //アクセス許可するオリジン
-  credentials: true, //レスポンスヘッダーにAccess-Control-Allow-Credentials追加
-  optionsSuccessStatus: 200 //レスポンスstatusを200に設定
-}))
+app.use(cors());
 
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "public/images")))
